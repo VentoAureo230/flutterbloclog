@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098317273973",
+    "project_id": "flutterbloclog",
+    "storage_bucket": "flutterbloclog.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098317273973:android:d24db427f91604587e113c",
+        "android_client_info": {
+          "package_name": "com.example.flutterbloclog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqmyBzeDckhbzgEHaCjfHCCqA75z24Noc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
