@@ -1,4 +1,4 @@
-part of 'sign_in_bloc_bloc.dart';
+part of 'sign_in_bloc.dart';
 
 sealed class SignInBlocState extends Equatable {
   const SignInBlocState();
@@ -9,7 +9,8 @@ sealed class SignInBlocState extends Equatable {
 
 final class SignInBlocInitial extends SignInBlocState {}
 
-class SignInBlocSuccess extends SignInBlocState {}
+class SignInBlocSuccess extends SignInBlocState {
+}
 
 class SignInBlocFailure extends SignInBlocState {
   final String? message;
