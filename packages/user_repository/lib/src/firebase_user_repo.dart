@@ -23,7 +23,8 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> signIn(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -33,12 +34,12 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<MyUser> signUp(MyUser myUser, String password) async {
     try {
-      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(email: myUser.email, password: password);
+      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: myUser.email, password: password);
 
       myUser = myUser.copyWith(userID: user.user!.uid);
 
       return myUser;
-
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -48,10 +49,17 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> setUserData(MyUser myUser) async {
     try {
-      await usersCollection.doc(myUser.userID).set(myUser.toEntity().toDocument());
+      await usersCollection
+          .doc(myUser.userID)
+          .set(myUser.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;
     }
+  }
+
+  @override
+  Future<void> logOut() async {
+    await _firebaseAuth.signOut();
   }
 }
