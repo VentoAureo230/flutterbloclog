@@ -1,6 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+import 'package:flutterbloclog/app.dart';
 
+void main() {
+  testWidgets('test', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    expect(find.text('Hello'), findsOneWidget);
   });
 }
