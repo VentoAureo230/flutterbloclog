@@ -43,6 +43,7 @@ dependencies:
   equatable: ^2.0.5
   user_repository: 
     path: packages/user_repository
+  meta: ^1.9.1
 
 dev_dependencies:
   flutter_test:
