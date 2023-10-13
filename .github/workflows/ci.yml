@@ -4,6 +4,7 @@ on:
     branches: 
       - master
 
+
 jobs:
   flutter_test:
     name: Run Flutter Tests and Analysis
