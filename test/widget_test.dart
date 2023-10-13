@@ -6,5 +6,6 @@ void main() {
     await tester.pumpWidget(MyApp());
 
     expect(find.text('Hello'), findsOneWidget);
+    expect(find.text('Bye'), findsOneWidget);
   });
 }
