@@ -44,6 +44,8 @@ dependencies:
   user_repository: 
     path: packages/user_repository
   meta: ^1.9.1
+  flutter_profile_picture: ^2.0.0
+  firebase_storage: ^11.2.8
 
 dev_dependencies:
   flutter_test:

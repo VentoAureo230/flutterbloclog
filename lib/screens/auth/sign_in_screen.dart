@@ -14,9 +14,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+
 	final passwordController = TextEditingController();
   final emailController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+  
 	bool signInRequired = false;
 	IconData iconPassword = CupertinoIcons.eye_fill;
 	bool obscurePassword = true;
