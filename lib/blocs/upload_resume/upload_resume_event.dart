@@ -7,10 +7,10 @@ sealed class UploadResumeEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class UploadResumeEventTriggers extends UploadResumeEvent {
+class UploadResumeEventTrigger extends UploadResumeEvent {
   final File pdfFile;
 
-  const UploadResumeEventTriggers({required this.pdfFile});
+  const UploadResumeEventTrigger({required this.pdfFile});
 
   @override
   List<Object?> get props => [pdfFile];

@@ -84,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       final File file = File(result.files.single.path!);
                       context
                           .read<UploadResumeBloc>()
-                          .add(UploadResumeEventTriggers(pdfFile: file));
+                          .add(UploadResumeEventTrigger(pdfFile: file));
                     }
                   },
                   child: const Text('Upload Resume'),

@@ -2,15 +2,17 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'upload_resume_event.dart';
 part 'upload_resume_state.dart';
 
 class UploadResumeBloc extends Bloc<UploadResumeEvent, UploadResumeState> {
-  UploadResumeBloc() : super(UploadResumeInitial()) {
-    on<UploadResumeEventTriggers>((event, emit) async {
+  final MyUserEntity user;
+
+  UploadResumeBloc(this.user) : super(UploadResumeInitial()) {
+    on<UploadResumeEventTrigger>((event, emit) async {
       emit(UploadResumeInProgess());
 
       try {
@@ -28,9 +30,8 @@ class UploadResumeBloc extends Bloc<UploadResumeEvent, UploadResumeState> {
 
   Future<String?> _uploadResumeToStorage(File pdfFile) async {
     try {
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('resume/${User + DateTime.now().millisecondsSinceEpoch}');
+      final ref = FirebaseStorage.instance.ref().child(
+          'resume/${user.userID}_${DateTime.now().millisecondsSinceEpoch}');
       final uploadTask =
           ref.putFile(pdfFile, SettableMetadata(contentType: 'pdf'));
       final snapshot = await uploadTask.whenComplete(() {});
