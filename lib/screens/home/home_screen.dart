@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbloclog/screens/template.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,8 +6,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-        body: TemplatePage(
-          body: Center(child: Text('HomeScreen'),),
-        ));
+      body: Center(
+        child: Text('HomeScreen'),
+      ),
+    );
   }
 }

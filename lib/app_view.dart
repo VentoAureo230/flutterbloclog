@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterbloclog/blocs/auth_bloc/authentication_bloc.dart';
-import 'package:flutterbloclog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:flutterbloclog/generated_route.dart';
-import 'package:flutterbloclog/screens/home/home_screen.dart';
+import 'package:flutterbloclog/screens/components/persistent_navbar.dart';
 import 'package:flutterbloclog/screens/auth/welcome_screen.dart';
 
 class MyAppView extends StatelessWidget {
@@ -29,19 +28,7 @@ class MyAppView extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => SignInBloc(
-                      userRepository:
-                          context.read<AuthenticationBloc>().userRepository),
-                ),
-                //BlocProvider(
-                //  create: (context) => SubjectBloc(),
-                //),
-              ],
-              child: const HomeScreen(),
-            );
+            return const PersistentTabScreen();
           } else {
             return const WelcomeScreen();
           }
