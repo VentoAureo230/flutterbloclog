@@ -5,13 +5,28 @@ class MyUser extends Equatable {
   final String userID;
   final String email;
   final String name;
+  final int age;
+  final String experience;
+  final String pfp;
+  final List<String> diplomas;
 
-  const MyUser({required this.userID, required this.email, required this.name});
+  const MyUser({
+    required this.userID, 
+    required this.email, 
+    required this.name,
+    required this.age,
+    required this.experience,
+    required this.pfp,
+    required this.diplomas});
 
   static const empty = MyUser(
     userID: '',
     email: '',
     name: '',
+    age: null,
+    experience: '',
+    pfp: '',
+    diplomas: '',
   );
 
   MyUser copyWith({
@@ -26,7 +41,14 @@ class MyUser extends Equatable {
   }
 
   MyUserEntity toEntity() {
-    return MyUserEntity(userID: userID, email: email, name: name);
+    return MyUserEntity(
+        userID: userID,
+        email: email,
+        name: name,
+        age: age,
+        experience: experience,
+        profilePhoto: pfp,
+        diplomas: []);
   }
 
   static MyUser fromEntity(MyUserEntity entity) {

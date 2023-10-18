@@ -7,4 +7,17 @@ sealed class UploadResumeState extends Equatable {
   List<Object> get props => [];
 }
 
-final class UploadResumeInitial extends UploadResumeState {}
+class UploadResumeInitial extends UploadResumeState {}
+
+class UploadResumeInProgess extends UploadResumeState {}
+
+class UploadResumeSuccess extends UploadResumeState {
+  final String pdfUrl;
+
+  const UploadResumeSuccess(this.pdfUrl);
+  
+  @override
+  List<Object> get props => [pdfUrl];
+}
+
+class UploadResumeFailure extends UploadResumeState {}

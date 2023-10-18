@@ -11,7 +11,7 @@ abstract class UploadPfpEvent extends Equatable {
 class UploadPfpEventTrigger extends UploadPfpEvent {
   final File imgFile;
 
-  const UploadPfpEventTrigger(this.imgFile);
+  const UploadPfpEventTrigger({required this.imgFile});
 
   @override
   List<Object?> get props => [imgFile];

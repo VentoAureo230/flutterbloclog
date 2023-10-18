@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:flutterbloclog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:flutterbloclog/blocs/upload_pfp/upload_pfp_bloc.dart';
 import 'package:flutterbloclog/blocs/upload_pfp/upload_pfp_event.dart';
+import 'package:flutterbloclog/blocs/upload_pfp/upload_pfp_state.dart';
 import 'package:flutterbloclog/blocs/upload_resume/upload_resume_bloc.dart';
 import 'package:flutterbloclog/screens/auth/components/my_text_field.dart';
 import 'package:flutterbloclog/screens/template.dart';
@@ -39,18 +43,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 65,
           ),
           // profile picture
-          const ProfilePicture(
+          ProfilePicture(
               name: 'username',
               radius: 31,
               fontsize: 21,
-              img: 'profileImageUrl'),
+              img: context.select((ImageUploadBloc bloc) {
+                if (bloc.state is UploadPfpSuccess) {
+                  return (bloc.state as UploadPfpSuccess).imageUrl;
+                } else {
+                  return null;
+                }
+              })),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 25),
-            child: ElevatedButton(
-              onPressed: () {
-                context.read<ImageUploadBloc>().add(UploadPfpEventTrigger(imgFile))
-              },
-              child: const Text('Upload Profile Picture'),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      type: FileType.image,
+                    );
+                    if (result != null) {
+                      final File file = File(result.files.single.path!);
+                      context
+                          .read<ImageUploadBloc>()
+                          .add(UploadPfpEventTrigger(imgFile: file));
+                    }
+                  },
+                  child: const Text('Upload Profile Picture'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      type: FileType.any,
+                    );
+                    if (result != null) {
+                      final File file = File(result.files.single.path!);
+                      context
+                          .read<UploadResumeBloc>()
+                          .add(UploadResumeEventTriggers(pdfFile: file));
+                    }
+                  },
+                  child: const Text('Upload Resume'),
+                ),
+              ],
             ),
           ),
           Padding(
@@ -127,6 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               IconButton(
                   onPressed: () {
                     context.read<SignInBloc>().add(const SignOutRequired());
+                    Navigator.of(context).pushNamed('/');
                   },
                   icon: Icon(
                     Icons.logout,

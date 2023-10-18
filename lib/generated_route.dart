@@ -12,7 +12,7 @@ class GeneratedRoute {
       case '/messages':
         return MaterialPageRoute(builder: (context) => const ChatScreen());
       case '/profile':
-        return MaterialPageRoute(builder: (context) => ProfileScreen());
+        return MaterialPageRoute(builder: (context) => const ProfileScreen());
       case '/settings':
         return MaterialPageRoute(builder: (context) => const SettingScreen());
       default:

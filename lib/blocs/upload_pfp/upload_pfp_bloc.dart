@@ -7,38 +7,35 @@ import 'upload_pfp_event.dart';
 import 'upload_pfp_state.dart';
 
 class ImageUploadBloc extends Bloc<UploadPfpEvent, UploadPfpState> {
-  ImageUploadBloc() : super(UploadPfpInitial());
-
-  Stream<UploadPfpState> mapEventToState(UploadPfpEvent event) async* {
-    if (event is UploadPfpEventTrigger) {
-      yield UploadPfpInProgress();
+  ImageUploadBloc() : super(UploadPfpInitial()) {
+    on<UploadPfpEventTrigger>((event, emit) async {
+      emit(UploadPfpInProgress());
 
       try {
-        final imageUrl =
-            await uploadImageToStorage(event.imgFile);
+        final imageUrl = await _uploadImageToStorage(event.imgFile);
 
         if (imageUrl != null) {
-          yield UploadPfpSuccess(imageUrl);
+          emit(UploadPfpSuccess(imageUrl));
         } else {
-          yield UploadPfpFailure();
+          emit(UploadPfpFailure());
         }
       } catch (e) {
-        yield UploadPfpFailure();
+        emit(UploadPfpFailure());
       }
-    }
+    });
   }
 
-  Future<String?> uploadImageToStorage(File imgFile) async {
+  Future<String?> _uploadImageToStorage(File imgFile) async {
     try {
       final ref = FirebaseStorage.instance
           .ref()
           .child('profile_images/${DateTime.now().millisecondsSinceEpoch}');
-      final uploadTask = ref.putFile(imgFile ,SettableMetadata(contentType: 'img'));
+      final uploadTask = ref.putFile(imgFile, SettableMetadata(contentType: 'img'));
       final snapshot = await uploadTask.whenComplete(() {});
       final imageUrl = await snapshot.ref.getDownloadURL();
       return imageUrl;
     } catch (e) {
-      return null;
+      return e.toString();
     }
   }
 }
