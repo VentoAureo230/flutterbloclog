@@ -38,144 +38,146 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(
-          height: 65,
-        ),
-        // profile picture
-        ProfilePicture(
-            name: 'username',
-            radius: 31,
-            fontsize: 21,
-            img: context.select((ImageUploadBloc bloc) {
-              if (bloc.state is UploadPfpSuccess) {
-                return (bloc.state as UploadPfpSuccess).imageUrl;
-              } else {
-                return null;
-              }
-            })),
-        Padding(
-          padding: const EdgeInsets.only(left: 25, right: 25),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  final FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                    type: FileType.image,
-                  );
-                  if (result != null) {
-                    final File file = File(result.files.single.path!);
-                    context
-                        .read<ImageUploadBloc>()
-                        .add(UploadPfpEventTrigger(imgFile: file));
-                  }
-                },
-                child: const Text('Upload Profile Picture'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                    type: FileType.any,
-                  );
-                  if (result != null) {
-                    final File file = File(result.files.single.path!);
-                    context
-                        .read<UploadResumeBloc>()
-                        .add(UploadResumeEventTrigger(pdfFile: file));
-                  }
-                },
-                child: const Text('Upload Resume'),
-              ),
-            ],
+    return Scaffold(
+      body: ListView(
+        children: [
+          const SizedBox(
+            height: 65,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              // user name
-              MyTextField(
-                // full name
-                controller: fullnameController,
-                hintText: 'Full name',
-                obscureText: false,
-                keyboardType: TextInputType.name,
-              ),
-              // bio
-              const SizedBox(
-                height: 15,
-              ),
-              MyTextField(
-                // Bio
-                controller: biographyController,
-                hintText: 'Say something about yourself',
-                obscureText: false,
-                keyboardType: TextInputType.text,
-              ),
-              // age
-              const SizedBox(
-                height: 15,
-              ),
-              MyTextField(
+          // profile picture
+          ProfilePicture(
+              name: 'username',
+              radius: 31,
+              fontsize: 21,
+              img: context.select((ImageUploadBloc bloc) {
+                if (bloc.state is UploadPfpSuccess) {
+                  return (bloc.state as UploadPfpSuccess).imageUrl;
+                } else {
+                  return null;
+                }
+              })),
+          Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      type: FileType.image,
+                    );
+                    if (result != null) {
+                      final File file = File(result.files.single.path!);
+                      context
+                          .read<ImageUploadBloc>()
+                          .add(UploadPfpEventTrigger(imgFile: file));
+                    }
+                  },
+                  child: const Text('Upload Profile Picture'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      type: FileType.any,
+                    );
+                    if (result != null) {
+                      final File file = File(result.files.single.path!);
+                      context
+                          .read<UploadResumeBloc>()
+                          .add(UploadResumeEventTrigger(pdfFile: file));
+                    }
+                  },
+                  child: const Text('Upload Resume'),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                // user name
+                MyTextField(
+                  // full name
+                  controller: fullnameController,
+                  hintText: 'Full name',
+                  obscureText: false,
+                  keyboardType: TextInputType.name,
+                ),
+                // bio
+                const SizedBox(
+                  height: 15,
+                ),
+                MyTextField(
+                  // Bio
+                  controller: biographyController,
+                  hintText: 'Say something about yourself',
+                  obscureText: false,
+                  keyboardType: TextInputType.text,
+                ),
                 // age
-                controller: ageController,
-                hintText: 'Age',
-                obscureText: false,
-                keyboardType: TextInputType.number,
-              ),
-              // exp
-              const SizedBox(
-                height: 15,
-              ),
-              MyTextField(
+                const SizedBox(
+                  height: 15,
+                ),
+                MyTextField(
+                  // age
+                  controller: ageController,
+                  hintText: 'Age',
+                  obscureText: false,
+                  keyboardType: TextInputType.number,
+                ),
                 // exp
-                controller: experienceController,
-                hintText: 'What\'s your most recents experiences ?',
-                obscureText: false,
-                keyboardType: TextInputType.text,
-              ),
-              // diplome
-              const SizedBox(
-                height: 15,
-              ),
-              MyTextField(
+                const SizedBox(
+                  height: 15,
+                ),
+                MyTextField(
+                  // exp
+                  controller: experienceController,
+                  hintText: 'What\'s your most recents experiences ?',
+                  obscureText: false,
+                  keyboardType: TextInputType.text,
+                ),
                 // diplome
-                controller: diplomaController,
-                hintText: 'Recent diplomas',
-                obscureText: false,
-                keyboardType: TextInputType.text,
-              ),
-            ],
+                const SizedBox(
+                  height: 15,
+                ),
+                MyTextField(
+                  // diplome
+                  controller: diplomaController,
+                  hintText: 'Recent diplomas',
+                  obscureText: false,
+                  keyboardType: TextInputType.text,
+                ),
+              ],
+            ),
           ),
-        ),
-        // upload resume
-        const SizedBox(
-          height: 15,
-        ),
-        // TODO : ToggleBtn(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Log Out'),
-            IconButton(
-                onPressed: () {
-                  context.read<SignInBloc>().add(const SignOutRequired());
-                  Navigator.of(context).pushNamed('/');
-                },
-                icon: Icon(
-                  Icons.logout,
-                  color: Theme.of(context).colorScheme.error,
-                )),
-          ],
-        )
-      ],
+          // upload resume
+          const SizedBox(
+            height: 15,
+          ),
+          // TODO : ToggleBtn(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Log Out'),
+              IconButton(
+                  onPressed: () {
+                    context.read<SignInBloc>().add(const SignOutRequired());
+                    Navigator.of(context).pushNamed('/');
+                  },
+                  icon: Icon(
+                    Icons.logout,
+                    color: Theme.of(context).colorScheme.error,
+                  )),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
