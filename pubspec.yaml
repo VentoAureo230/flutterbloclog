@@ -26,6 +26,15 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.8
   swipe_cards: ^2.0.0+1
   image_cropper: ^5.0.0
+  flutter_chat_ui: ^1.6.9
+  flutter_chat_types: ^3.6.2
+  http: ^1.1.0
+  image_picker: ^1.0.4
+  mime: ^1.0.4
+  intl: ^0.18.1
+  open_filex: ^4.3.4
+  path_provider: ^2.1.1
+  uuid: ^4.1.0
 
 dev_dependencies:
   flutter_test:

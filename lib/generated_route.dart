@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbloclog/screens/home/home_screen.dart';
 import 'package:flutterbloclog/screens/message/message_screen.dart';
+import 'package:flutterbloclog/screens/message/single_chat_screen.dart';
 import 'package:flutterbloclog/screens/profile/profile_screen.dart';
 import 'package:flutterbloclog/screens/settings/settings_screen.dart';
 
@@ -15,6 +16,8 @@ class GeneratedRoute {
         return MaterialPageRoute(builder: (context) => const ProfileScreen());
       case '/settings':
         return MaterialPageRoute(builder: (context) => const SettingScreen());
+      case '/chat':
+        return MaterialPageRoute(builder: (context) => const ChatPage());
       default:
     }
     return MaterialPageRoute(
